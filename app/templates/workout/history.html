@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Workout History - Workout Tracker{% endblock %}
+
+{% block content %}
+<div class="history">
+    <h1>Workout History</h1>
+    
+    {% if workouts %}
+    <div class="workout-history-list">
+        {% for workout in workouts %}
+        <div class="workout-history-card">
+            <a href="{{ url_for('workout.view_workout', workout_id=workout.id) }}">
+                <div class="workout-history-header">
+                    <h3>{{ workout.workout_name }}</h3>
+                    <span class="date">{{ workout.date.strftime('%B %d, %Y') }}</span>
+                </div>
+                <div class="workout-history-meta">
+                    <span class="badge">Split {{ workout.split }}</span>
+                    <span class="badge">Week {{ workout.week_number }}</span>
+                    <span class="badge">{{ workout.sets|length }} exercises</span>
+                </div>
+                {% if workout.notes %}
+                <div class="workout-history-notes">
+                    {{ workout.notes[:100] }}{% if workout.notes|length > 100 %}...{% endif %}
+                </div>
+                {% endif %}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No workouts logged yet.</p>
+        <a href="{{ url_for('workout.log_workout') }}" class="btn btn-primary">Log Your First Workout</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

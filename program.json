@@ -1,0 +1,85 @@
+{
+  "name": "3+1 Periodization Program",
+  "description": "A 4-week training cycle with 3 weeks of progressive overload followed by 1 deload week. Alternates between A (Upper Push) and B (Lower/Pull) splits weekly.",
+  "cycle_weeks": 4,
+  "splits": {
+    "A": {
+      "name": "Upper Body Push",
+      "description": "Focus on pressing movements and shoulder work",
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [4, 4, 4, 3],
+          "reps": [8, 6, 4, 8],
+          "notes": "Main compound movement. Progressive overload weeks 1-3, deload week 4"
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [3, 3, 3, 2],
+          "reps": [10, 8, 6, 10],
+          "notes": "Strict form, focus on shoulder strength"
+        },
+        {
+          "name": "Incline Dumbbell Press",
+          "sets": [3, 3, 3, 2],
+          "reps": [12, 10, 8, 12],
+          "notes": "Upper chest development"
+        },
+        {
+          "name": "Dips",
+          "sets": [3, 3, 3, 2],
+          "reps": [12, 10, 8, 12],
+          "notes": "Bodyweight or weighted. Chest emphasis"
+        },
+        {
+          "name": "Lateral Raises",
+          "sets": [3, 3, 3, 2],
+          "reps": [15, 12, 12, 15],
+          "notes": "Shoulder isolation work"
+        }
+      ]
+    },
+    "B": {
+      "name": "Lower Body & Pull",
+      "description": "Leg dominant with pulling movements",
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [4, 4, 4, 3],
+          "reps": [8, 6, 4, 8],
+          "notes": "Main compound movement. Go heavy weeks 1-3"
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [3, 3, 3, 2],
+          "reps": [10, 8, 6, 10],
+          "notes": "Hamstring and posterior chain focus"
+        },
+        {
+          "name": "Pull-ups",
+          "sets": [4, 4, 4, 3],
+          "reps": [10, 8, 6, 10],
+          "notes": "Bodyweight or weighted. Full range of motion"
+        },
+        {
+          "name": "Barbell Row",
+          "sets": [3, 3, 3, 2],
+          "reps": [10, 8, 6, 10],
+          "notes": "Back thickness. Maintain horizontal torso"
+        },
+        {
+          "name": "Leg Press",
+          "sets": [3, 3, 3, 2],
+          "reps": [15, 12, 10, 15],
+          "notes": "Quad volume work"
+        },
+        {
+          "name": "Face Pulls",
+          "sets": [3, 3, 3, 2],
+          "reps": [15, 15, 12, 15],
+          "notes": "Rear delt and upper back health"
+        }
+      ]
+    }
+  }
+}

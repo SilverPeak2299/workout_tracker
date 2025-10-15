@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Workout Details - Coach View{% endblock %}
+
+{% block content %}
+<div class="workout-view">
+    <div class="workout-header">
+        <h1>{{ summary.workout.workout_name }}</h1>
+        <p class="date">{{ summary.workout.date.strftime('%B %d, %Y') }}</p>
+        <div class="workout-meta">
+            <span class="badge">Split {{ summary.workout.split }}</span>
+            <span class="badge">Week {{ summary.workout.week_number }}</span>
+        </div>
+    </div>
+
+    {% if summary.workout.notes %}
+    <div class="card">
+        <h3>Notes</h3>
+        <p>{{ summary.workout.notes }}</p>
+    </div>
+    {% endif %}
+
+    <div class="card">
+        <h2>Summary</h2>
+        <div class="summary-stats">
+            <div class="stat">
+                <div class="stat-label">Total Volume</div>
+                <div class="stat-value">{{ summary.total_volume }} kg</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Exercises</div>
+                <div class="stat-value">{{ summary.exercises|length }}</div>
+            </div>
+        </div>
+    </div>
+
+    {% for exercise_name, exercise_data in summary.exercises.items() %}
+    <div class="card exercise-detail">
+        <h3>{{ exercise_name }}</h3>
+        
+        <div class="exercise-stats">
+            <span>Volume: {{ exercise_data.total_volume }} kg</span>
+            <span>Est. 1RM: {{ exercise_data.best_estimated_1rm }} kg</span>
+        </div>
+        
+        <table class="sets-table">
+            <thead>
+                <tr>
+                    <th>Set</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+                    <th>RPE</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for set in exercise_data.sets %}
+                <tr>
+                    <td>{{ set.set_number }}</td>
+                    <td>{{ set.reps }}</td>
+                    <td>{{ set.weight }} kg</td>
+                    <td>{% if set.rpe %}{{ set.rpe }}{% else %}-{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+
+    <div class="actions">
+        <a href="{{ url_for('coach.view', token=token) }}" class="btn btn-secondary">Back to Coach View</a>
+    </div>
+</div>
+{% endblock %}
