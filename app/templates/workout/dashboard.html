@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Workout Tracker{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <h1>Welcome, {{ user.name }}!</h1>
+        <p class="date">{{ today_workout.split_name }} - Week {{ today_workout.week_in_cycle }}{% if today_workout.is_deload %} (Deload){% endif %}</p>
+    </div>
+
+    <div class="grid">
+        <!-- Today's Workout -->
+        <div class="card">
+            <h2>Today's Workout</h2>
+            <div class="workout-plan">
+                {% for exercise in today_workout.exercises %}
+                <div class="exercise-item">
+                    <span class="exercise-name">{{ exercise.name }}</span>
+                    <span class="exercise-details">{{ exercise.sets }} × {{ exercise.reps }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <a href="{{ url_for('workout.log_workout') }}" class="btn btn-primary">Log Workout</a>
+        </div>
+
+        <!-- Weekly Volume -->
+        <div class="card">
+            <h2>This Week's Volume</h2>
+            {% if weekly_volume %}
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Volume</th>
+                        <th>Sets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for exercise, stats in weekly_volume.items() %}
+                    <tr>
+                        <td>{{ exercise }}</td>
+                        <td>{{ stats.total_volume }} kg</td>
+                        <td>{{ stats.total_sets }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-data">No workouts logged this week yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Estimated 1RM -->
+        <div class="card">
+            <h2>Best Estimated 1RM (4 weeks)</h2>
+            {% if best_1rms %}
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Est. 1RM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for exercise, one_rm in best_1rms.items() %}
+                    <tr>
+                        <td>{{ exercise }}</td>
+                        <td>{{ one_rm }} kg</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-data">No data available yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Recent Workouts -->
+        <div class="card">
+            <h2>Recent Workouts</h2>
+            {% if recent_workouts %}
+            <div class="workout-list">
+                {% for workout in recent_workouts %}
+                <div class="workout-item">
+                    <a href="{{ url_for('workout.view_workout', workout_id=workout.id) }}">
+                        <div class="workout-date">{{ workout.date.strftime('%b %d, %Y') }}</div>
+                        <div class="workout-name">{{ workout.workout_name }}</div>
+                        <div class="workout-meta">Split {{ workout.split }} - Week {{ workout.week_number }}</div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <a href="{{ url_for('workout.history') }}" class="btn btn-secondary">View All</a>
+            {% else %}
+            <p class="no-data">No workouts logged yet.</p>
+            <a href="{{ url_for('workout.log_workout') }}" class="btn btn-primary">Log Your First Workout</a>
+            {% endif %}
+        </div>
+
+        <!-- Coach View Share Link -->
+        <div class="card">
+            <h2>Coach View</h2>
+            <p>Share this read-only link with your coach:</p>
+            <div class="share-link-container">
+                <input type="text" id="shareLink" value="{{ share_url }}" readonly class="form-control">
+                <button onclick="copyShareLink()" class="btn btn-secondary">Copy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyShareLink() {
+    const shareLink = document.getElementById('shareLink');
+    shareLink.select();
+    document.execCommand('copy');
+    alert('Link copied to clipboard!');
+}
+</script>
+{% endblock %}
