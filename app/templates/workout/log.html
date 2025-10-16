@@ -13,19 +13,19 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="workout_name">Workout Name</label>
-                    <input 
-                        type="text" 
-                        id="workout_name" 
-                        name="workout_name" 
-                        class="form-control" 
-                        value="{{ today_workout.split_name }}"
+                    <input
+                        type="text"
+                        id="workout_name"
+                        name="workout_name"
+                        class="form-control"
+                        value="{{ today_workout.session_name or today_workout.split_name }}"
                         required
                     >
                 </div>
-                
+
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input 
+                    <input
                         type="date" 
                         id="date" 
                         name="date" 
@@ -39,27 +39,38 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="week_number">Week in Cycle</label>
-                    <input 
-                        type="number" 
-                        id="week_number" 
-                        name="week_number" 
-                        class="form-control" 
+                    <input
+                        type="number"
+                        id="week_number"
+                        name="week_number"
+                        class="form-control"
                         value="{{ today_workout.week_in_cycle }}"
-                        min="1" 
-                        max="4"
+                        min="1"
+                        max="{{ today_workout.cycle_weeks or 4 }}"
                         required
                     >
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="split">Split</label>
+                    <label for="split">Week Template</label>
                     <select id="split" name="split" class="form-control" required>
-                        <option value="A" {% if today_workout.split == 'A' %}selected{% endif %}>A</option>
-                        <option value="B" {% if today_workout.split == 'B' %}selected{% endif %}>B</option>
+                        <option value="A" {% if today_workout.week_type == 'A' or today_workout.split == 'A' %}selected{% endif %}>A</option>
+                        <option value="B" {% if today_workout.week_type == 'B' or today_workout.split == 'B' %}selected{% endif %}>B</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="day_name">Scheduled Day</label>
+                    <input
+                        type="text"
+                        id="day_name"
+                        class="form-control"
+                        value="{{ today_workout.day_name or 'Unscheduled' }}"
+                        readonly
+                    >
+                </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="notes">Notes (optional)</label>
                 <textarea 
@@ -75,39 +86,47 @@
         <div class="form-section">
             <h2>Exercises</h2>
             <div id="exercisesContainer">
+                {% if today_workout.is_rest_day %}
+                <p class="no-data">No structured session is scheduled today. Add notes above if you perform optional work.</p>
+                {% else %}
                 {% for exercise in today_workout.exercises %}
-                <div class="exercise-card" data-exercise-index="{{ loop.index0 }}">
+                {% set exercise_index = loop.index0 %}
+                <div class="exercise-card" data-exercise-index="{{ exercise_index }}">
                     <h3>{{ exercise.name }}</h3>
-                    <input 
-                        type="hidden" 
-                        name="exercise_{{ loop.index0 }}_name" 
+                    {% if exercise.notes %}
+                    <p class="exercise-note">{{ exercise.notes }}</p>
+                    {% endif %}
+                    <input
+                        type="hidden"
+                        name="exercise_{{ exercise_index }}_name"
                         value="{{ exercise.name }}"
                     >
-                    
-                    <div class="sets-container" data-exercise-index="{{ loop.index0 }}">
-                        {% for set in range(exercise.sets) %}
+
+                    <div class="sets-container" data-exercise-index="{{ exercise_index }}">
+                        {% for _ in range(exercise.sets) %}
+                        {% set set_index = loop.index0 %}
                         <div class="set-row">
-                            <span class="set-label">Set {{ loop.index }}</span>
-                            <input 
-                                type="number" 
-                                name="exercise_{{ loop.index0 }}_set_{{ loop.index0 }}_reps" 
+                            <span class="set-label">Set {{ set_index + 1 }}</span>
+                            <input
+                                type="number"
+                                name="exercise_{{ exercise_index }}_set_{{ set_index }}_reps"
                                 placeholder="Reps ({{ exercise.reps }})"
                                 class="form-control set-input"
                                 min="1"
                                 required
                             >
-                            <input 
-                                type="number" 
-                                name="exercise_{{ loop.index0 }}_set_{{ loop.index0 }}_weight" 
+                            <input
+                                type="number"
+                                name="exercise_{{ exercise_index }}_set_{{ set_index }}_weight"
                                 placeholder="Weight (kg)"
                                 class="form-control set-input"
                                 step="0.5"
                                 min="0"
                                 required
                             >
-                            <input 
-                                type="number" 
-                                name="exercise_{{ loop.index0 }}_set_{{ loop.index0 }}_rpe" 
+                            <input
+                                type="number"
+                                name="exercise_{{ exercise_index }}_set_{{ set_index }}_rpe"
                                 placeholder="RPE (1-10)"
                                 class="form-control set-input"
                                 step="0.5"
@@ -117,12 +136,13 @@
                         </div>
                         {% endfor %}
                     </div>
-                    
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="addSet({{ loop.index0 }})">
+
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="addSet({{ exercise_index }})">
                         Add Another Set
                     </button>
                 </div>
                 {% endfor %}
+                {% endif %}
             </div>
         </div>
 

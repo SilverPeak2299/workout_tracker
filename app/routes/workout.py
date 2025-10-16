@@ -168,6 +168,7 @@ def api_program():
     
     split = request.args.get('split', 'A')
     week = int(request.args.get('week', 1))
-    
-    workout = program_loader.get_split_workout(split, week)
-    return jsonify(workout)
+    day = request.args.get('day')
+
+    workout = program_loader.get_split_workout(split, week, day_name=day)
+    return jsonify(workout or {})
