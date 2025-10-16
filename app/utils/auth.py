@@ -12,13 +12,13 @@ class AuthHelper:
         Authenticate a user with email and password.
         
         Args:
-            email: User's email address
+            email: User's email address (should already be normalized)
             password: User's password
         
         Returns:
             User or None: The user object if authentication is successful, None otherwise
         """
-        user = User.query.filter_by(email=email.strip().lower()).first()
+        user = User.query.filter_by(email=email).first()
         
         if user and user.check_password(password):
             return user
@@ -31,7 +31,7 @@ class AuthHelper:
         Create a new user.
         
         Args:
-            email: User's email address
+            email: User's email address (should already be normalized)
             password: User's password
             name: User's name (optional, uses email prefix if not provided)
         
@@ -42,7 +42,7 @@ class AuthHelper:
             # Use email prefix as name
             name = email.split('@')[0].title()
         
-        user = User(email=email.strip().lower(), name=name)
+        user = User(email=email, name=name)
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
@@ -55,9 +55,9 @@ class AuthHelper:
         Get a user by email address.
         
         Args:
-            email: User's email address
+            email: User's email address (should already be normalized)
         
         Returns:
             User or None: The user object if found, None otherwise
         """
-        return User.query.filter_by(email=email.strip().lower()).first()
+        return User.query.filter_by(email=email).first()

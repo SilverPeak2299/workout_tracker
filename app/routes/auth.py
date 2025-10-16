@@ -12,7 +12,7 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email', '').strip().lower()
         password = request.form.get('password', '')
-        remember = request.form.get('remember', False)
+        remember = request.form.get('remember') in ['true', 'on', '1', 'True']
         
         if not email or not password:
             flash('Please enter both email and password.', 'error')
