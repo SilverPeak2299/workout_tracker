@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="{{ url_for('main.index') }}" class="logo">💪 Workout Tracker</a>
+            <a href="{{ url_for('main.index') }}" class="logo">Workout Tracker</a>
             <div class="nav-links">
                 {% if session.get('user_id') %}
                     <a href="{{ url_for('workout.dashboard') }}">Dashboard</a>
