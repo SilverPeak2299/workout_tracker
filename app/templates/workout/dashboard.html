@@ -6,21 +6,36 @@
 <div class="dashboard">
     <div class="dashboard-header">
         <h1>Welcome, {{ user.name }}!</h1>
-        <p class="date">{{ today_workout.split_name }} - Week {{ today_workout.week_in_cycle }}{% if today_workout.is_deload %} (Deload){% endif %}</p>
+        <p class="date">
+            {{ today_workout.day_name or 'Unscheduled Day' }}
+            {% if today_workout.session_name %}· {{ today_workout.session_name }}{% endif %}
+            · Week {{ today_workout.week_in_cycle }} (Week {{ today_workout.week_type | default(today_workout.split) }})
+            {% if today_workout.is_deload %}(Deload){% endif %}
+        </p>
     </div>
 
     <div class="grid">
         <!-- Today's Workout -->
         <div class="card">
             <h2>Today's Workout</h2>
+            {% if today_workout.is_rest_day %}
+            <p class="no-data">Rest day scheduled. Focus on recovery, mobility, or light activity.</p>
+            {% else %}
+            {% if today_workout.session_description %}
+            <p class="description">{{ today_workout.session_description }}</p>
+            {% endif %}
             <div class="workout-plan">
                 {% for exercise in today_workout.exercises %}
                 <div class="exercise-item">
                     <span class="exercise-name">{{ exercise.name }}</span>
                     <span class="exercise-details">{{ exercise.sets }} × {{ exercise.reps }}</span>
+                    {% if exercise.notes %}
+                    <span class="exercise-notes">{{ exercise.notes }}</span>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
+            {% endif %}
             <a href="{{ url_for('workout.log_workout') }}" class="btn btn-primary">Log Workout</a>
         </div>
 

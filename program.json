@@ -1,84 +1,98 @@
 {
-  "name": "3+1 Periodization Program",
-  "description": "A 4-week training cycle with 3 weeks of progressive overload followed by 1 deload week. Alternates between A (Upper Push) and B (Lower/Pull) splits weekly.",
+  "name": "Fencing Performance 3+1 Program",
+  "description": "Alternates A/B weekly with 3 progressive weeks + 1 deload. Includes agility, tendon work, and lower-body strength focus.",
   "cycle_weeks": 4,
-  "splits": {
+  "periodisation": { "easy_week_factor": 0.8 },
+  "weeks": {
     "A": {
-      "name": "Upper Body Push",
-      "description": "Focus on pressing movements and shoulder work",
-      "exercises": [
-        {
-          "name": "Bench Press",
-          "sets": [4, 4, 4, 3],
-          "reps": [8, 6, 4, 8],
-          "notes": "Main compound movement. Progressive overload weeks 1-3, deload week 4"
-        },
-        {
-          "name": "Overhead Press",
-          "sets": [3, 3, 3, 2],
-          "reps": [10, 8, 6, 10],
-          "notes": "Strict form, focus on shoulder strength"
-        },
-        {
-          "name": "Incline Dumbbell Press",
-          "sets": [3, 3, 3, 2],
-          "reps": [12, 10, 8, 12],
-          "notes": "Upper chest development"
-        },
-        {
-          "name": "Dips",
-          "sets": [3, 3, 3, 2],
-          "reps": [12, 10, 8, 12],
-          "notes": "Bodyweight or weighted. Chest emphasis"
-        },
-        {
-          "name": "Lateral Raises",
-          "sets": [3, 3, 3, 2],
-          "reps": [15, 12, 12, 15],
-          "notes": "Shoulder isolation work"
-        }
-      ]
+      "Tuesday": "agility_acceleration",
+      "Thursday": "posterior_chain_A",
+      "Saturday": "tendon_maintenance",
+      "Sunday": "heavy_squat_day"
     },
     "B": {
-      "name": "Lower Body & Pull",
-      "description": "Leg dominant with pulling movements",
+      "Tuesday": "agility_acceleration",
+      "Thursday": "posterior_chain_B",
+      "Saturday": "tendon_maintenance",
+      "Sunday": "heavy_deadlift_day"
+    }
+  },
+  "sessions": {
+    "agility_acceleration": {
+      "name": "Agility & Acceleration",
+      "description": "Speed, reactivity, tendon elasticity; low fatigue.",
       "exercises": [
-        {
-          "name": "Squat",
-          "sets": [4, 4, 4, 3],
-          "reps": [8, 6, 4, 8],
-          "notes": "Main compound movement. Go heavy weeks 1-3"
-        },
-        {
-          "name": "Romanian Deadlift",
-          "sets": [3, 3, 3, 2],
-          "reps": [10, 8, 6, 10],
-          "notes": "Hamstring and posterior chain focus"
-        },
-        {
-          "name": "Pull-ups",
-          "sets": [4, 4, 4, 3],
-          "reps": [10, 8, 6, 10],
-          "notes": "Bodyweight or weighted. Full range of motion"
-        },
-        {
-          "name": "Barbell Row",
-          "sets": [3, 3, 3, 2],
-          "reps": [10, 8, 6, 10],
-          "notes": "Back thickness. Maintain horizontal torso"
-        },
-        {
-          "name": "Leg Press",
-          "sets": [3, 3, 3, 2],
-          "reps": [15, 12, 10, 15],
-          "notes": "Quad volume work"
-        },
-        {
-          "name": "Face Pulls",
-          "sets": [3, 3, 3, 2],
-          "reps": [15, 15, 12, 15],
-          "notes": "Rear delt and upper back health"
-        }
+        { "name": "Broad Jump", "sets": [2, 2, 2, 2], "reps": [3, 3, 3, 3], "notes": "Max intent; full recovery." },
+        { "name": "45° Hop-and-Stick", "sets": [3, 3, 3, 3], "reps": [6, 6, 6, 6], "notes": "Stabilize 2s on landing." },
+        { "name": "Split-Stance Lunge Land", "sets": [2, 2, 2, 2], "reps": [8, 8, 8, 8], "notes": "4/leg; hold 2s." },
+        { "name": "Hill Sprint (~6m)", "sets": [3, 3, 3, 3], "reps": [6, 6, 6, 6], "notes": "6–8 min rest between sets." },
+        { "name": "Long-Lever Bridge Hold (s)", "sets": [2, 2, 2, 2], "reps": [30, 30, 30, 30], "notes": "Isometric finisher." },
+        { "name": "Heel-Dig Bridge Hold (s)", "sets": [2, 2, 2, 2], "reps": [30, 30, 30, 30], "notes": "Hamstring isometric." }
+      ]
+    },
+    "posterior_chain_A": {
+      "name": "Posterior Chain Strength (A)",
+      "description": "Glute bias; controlled tendon loading.",
+      "exercises": [
+        { "name": "Romanian Deadlift", "sets": [4, 4, 4, 3], "reps": [6, 6, 6, 8], "notes": "3s eccentric; wk4 deload." },
+        { "name": "Hack Squat (Glute Bias)", "sets": [4, 4, 4, 3], "reps": [8, 8, 8, 10], "notes": "Moderate load." },
+        { "name": "Hip Thrust", "sets": [4, 4, 4, 3], "reps": [8, 8, 8, 10], "notes": "Full lockout." },
+        { "name": "Seated Leg Curl", "sets": [3, 3, 3, 2], "reps": [12, 12, 12, 12], "notes": "Slow tempo." },
+        { "name": "Adductor/Abductor Superset", "sets": [2, 2, 2, 2], "reps": [15, 15, 15, 15], "notes": "Stability work." },
+        { "name": "Standing Calf Raise", "sets": [3, 3, 3, 3], "reps": [12, 12, 12, 15], "notes": "3s lower." },
+        { "name": "Long-Lever Bridge Hold (s)", "sets": [2, 2, 2, 2], "reps": [10, 10, 10, 10], "notes": "5s per rep cluster." }
+      ]
+    },
+    "posterior_chain_B": {
+      "name": "Posterior Chain Strength (B)",
+      "description": "Posterior chain with tendon finisher.",
+      "exercises": [
+        { "name": "Romanian Deadlift", "sets": [4, 4, 4, 3], "reps": [6, 6, 6, 8], "notes": "3s eccentric." },
+        { "name": "Hack Squat (Glute Bias)", "sets": [3, 3, 3, 2], "reps": [8, 8, 8, 10], "notes": "Moderate." },
+        { "name": "Hip Thrust", "sets": [3, 3, 3, 3], "reps": [10, 10, 10, 10], "notes": "70–75% TM guidance." },
+        { "name": "Seated Leg Curl", "sets": [3, 3, 3, 2], "reps": [12, 12, 12, 12], "notes": "Controlled tempo." },
+        { "name": "Adductor/Abductor Superset", "sets": [2, 2, 2, 2], "reps": [15, 15, 15, 15], "notes": "Balanced hips." },
+        { "name": "Standing Calf Raise", "sets": [3, 3, 3, 3], "reps": [12, 12, 12, 12], "notes": "Slow stretch." },
+        { "name": "Single-Leg RDL", "sets": [2, 2, 2, 2], "reps": [8, 8, 8, 8], "notes": "Light, deep reach." },
+        { "name": "Heel-Dig Isometric (s)", "sets": [2, 2, 2, 2], "reps": [30, 30, 30, 30], "notes": "Tendon finisher." }
+      ]
+    },
+    "tendon_maintenance": {
+      "name": "Skipping & Tendon Maintenance",
+      "description": "Light, rhythmic conditioning and mobility.",
+      "exercises": [
+        { "name": "Skipping (s)", "sets": [5, 5, 5, 5], "reps": [30, 30, 30, 30], "notes": "20s rest between." },
+        { "name": "Long-Lever Bridge Hold (s)", "sets": [3, 3, 3, 3], "reps": [30, 30, 30, 30], "notes": "Isometric." },
+        { "name": "Heel-Dig Bridge Hold (s)", "sets": [2, 2, 2, 2], "reps": [30, 30, 30, 30], "notes": "Hamstrings." },
+        { "name": "Standing Hamstring Lean (s)", "sets": [2, 2, 2, 2], "reps": [20, 20, 20, 20], "notes": "Each leg." },
+        { "name": "Single-Leg RDL (BW)", "sets": [2, 2, 2, 2], "reps": [8, 8, 8, 8], "notes": "Balance focus." },
+        { "name": "Side-Plank Hip Raise", "sets": [2, 2, 2, 2], "reps": [10, 10, 10, 10], "notes": "Each side." }
+      ]
+    },
+    "heavy_squat_day": {
+      "name": "Heavy Lower — Squat",
+      "description": "Max strength emphasis on squat pattern.",
+      "exercises": [
+        { "name": "Back Squat", "sets": [4, 4, 4, 3], "reps": [5, 5, 5, 8], "notes": "75–80% wk1–3; deload wk4." },
+        { "name": "RDL (Light)", "sets": [3, 3, 3, 3], "reps": [8, 8, 8, 10], "notes": "60% guidance." },
+        { "name": "Hip Thrust", "sets": [3, 3, 3, 3], "reps": [10, 10, 10, 10], "notes": "≈70% TM." },
+        { "name": "Pull-Ups", "sets": [3, 3, 3, 3], "reps": [8, 8, 8, 8], "notes": "Strict; add weight if easy." },
+        { "name": "Adductor/Abductor", "sets": [2, 2, 2, 2], "reps": [15, 15, 15, 15], "notes": "Hypertrophy." },
+        { "name": "Standing Calf Raise", "sets": [4, 4, 4, 3], "reps": [8, 8, 8, 10], "notes": "Heavy stretch." },
+        { "name": "Back Extensions", "sets": [3, 3, 3, 3], "reps": [12, 12, 12, 12], "notes": "Slow control." }
+      ]
+    },
+    "heavy_deadlift_day": {
+      "name": "Heavy Lower — Deadlift",
+      "description": "Max strength emphasis on hinge pattern.",
+      "exercises": [
+        { "name": "Deadlift", "sets": [4, 4, 4, 3], "reps": [5, 5, 4, 6], "notes": "75–80% wk1–3; deload wk4." },
+        { "name": "Front or Split Squat", "sets": [3, 3, 3, 3], "reps": [8, 8, 8, 10], "notes": "60–65% guidance." },
+        { "name": "Hip Thrust", "sets": [3, 3, 3, 3], "reps": [8, 8, 8, 10], "notes": "≈70% TM." },
+        { "name": "Pull-Ups (Weighted if easy)", "sets": [3, 3, 3, 3], "reps": [6, 6, 6, 8], "notes": "Strict ROM." },
+        { "name": "Adductor/Abductor", "sets": [2, 2, 2, 2], "reps": [15, 15, 15, 15], "notes": "Hypertrophy." },
+        { "name": "Standing Calf Raise", "sets": [4, 4, 4, 3], "reps": [10, 10, 10, 12], "notes": "Slow stretch." },
+        { "name": "Back Extensions", "sets": [3, 3, 3, 3], "reps": [10, 10, 10, 12], "notes": "Posterior endurance." }
       ]
     }
   }
