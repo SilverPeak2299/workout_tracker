@@ -6,7 +6,7 @@
 <div class="login-container">
     <div class="login-card">
         <h1>Welcome to Workout Tracker</h1>
-        <p class="subtitle">Enter your email to receive a magic login link</p>
+        <p class="subtitle">Login to your account</p>
         
         <form method="POST" action="{{ url_for('auth.login') }}">
             <div class="form-group">
@@ -23,30 +23,31 @@
             </div>
             
             <div class="form-group">
-                <label for="name">Name (optional, for new accounts)</label>
+                <label for="password">Password</label>
                 <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
+                    type="password" 
+                    id="password" 
+                    name="password" 
                     class="form-control" 
-                    placeholder="Your Name"
+                    placeholder="Your password"
+                    required
                 >
-                <small class="form-text">Only needed if this is your first time logging in</small>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="remember" value="true" checked>
+                    Remember me for 3 days
+                </label>
             </div>
             
             <button type="submit" class="btn btn-primary btn-block">
-                Send Magic Link
+                Login
             </button>
         </form>
         
         <div class="login-info">
-            <h3>How it works:</h3>
-            <ol>
-                <li>Enter your email address above</li>
-                <li>Check your inbox for a login link</li>
-                <li>Click the link to access your account</li>
-                <li>No password needed!</li>
-            </ol>
+            <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Register here</a></p>
         </div>
     </div>
 </div>

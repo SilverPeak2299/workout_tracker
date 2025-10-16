@@ -1,11 +1,12 @@
 # Workout Tracker 💪
 
-A hyper-modular Flask application for tracking gym workouts with JSON-driven programming, passwordless authentication, and a read-only coach view.
+A hyper-modular Flask application for tracking gym workouts with JSON-driven programming, secure password authentication, and a read-only coach view.
 
 ## Features
 
 - **JSON-Driven Programs**: Define A/B weekly splits and 3+1 periodization cycles in a simple JSON format
-- **Passwordless Authentication**: Magic link login via email - no passwords to remember!
+- **Secure Authentication**: Password-based login with automatic session management
+- **Remember Me**: Stay logged in for up to 3 days without re-authentication
 - **Multi-User Support**: Each user has isolated data in SQLite
 - **Workout Logging**: Track sets, reps, weight, and RPE (Rate of Perceived Exertion)
 - **Dashboard Analytics**: 
@@ -57,7 +58,7 @@ workout_tracker/
 │   ├── models/
 │   │   └── __init__.py          # Database models (User, WorkoutLog, SetLog)
 │   ├── routes/
-│   │   ├── auth.py              # Authentication routes (magic links)
+│   │   ├── auth.py              # Authentication routes (login/register)
 │   │   ├── main.py              # Main/index routes
 │   │   ├── workout.py           # Workout tracking routes
 │   │   └── coach.py             # Coach view routes
@@ -81,12 +82,12 @@ workout_tracker/
 
 ## Usage
 
-### 1. Login
+### 1. Register/Login
 
-- Navigate to the login page
-- Enter your email address
-- Check your inbox for a magic link (in development mode, the link is shown on screen)
-- Click the link to log in
+- Navigate to the login page at `http://localhost:5000`
+- **New users**: Click "Register here" and create an account with email and password
+- **Existing users**: Enter your email and password to log in
+- Check "Remember me for 3 days" to stay logged in (enabled by default)
 
 ### 2. View Today's Workout
 
@@ -155,24 +156,25 @@ Edit `program.json` to customize your workout program:
 Edit `.env` to configure:
 
 - `SECRET_KEY`: Flask secret key (required for production)
-- `MAIL_SERVER`, `MAIL_PORT`, etc.: Email server for magic links
 - `DATABASE_URL`: SQLite database path (default: `sqlite:///workout_tracker.db`)
 - `PROGRAM_JSON_PATH`: Path to your program JSON file
+- `SESSION_COOKIE_SECURE`: Set to `true` in production with HTTPS
 
 ## Development
 
 The application uses:
 - **Flask**: Web framework
 - **SQLAlchemy**: ORM for database operations
-- **Flask-Mail**: Email sending for magic links
 - **SQLite**: Default database (easy to change to PostgreSQL/MySQL)
+- **Werkzeug**: Password hashing and security utilities
 
 ## Security Notes
 
-- Magic links expire after 1 hour
+- Passwords are securely hashed using Werkzeug's password hashing (PBKDF2)
+- Sessions are secure with HttpOnly cookies
+- User sessions persist for 3 days when "Remember me" is checked
 - Each user's data is isolated via user_id
 - Coach view tokens are unique per user and can be regenerated
-- No passwords stored - more secure than traditional auth!
 
 ## License
 
